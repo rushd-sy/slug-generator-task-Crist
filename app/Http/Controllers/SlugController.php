@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Http\Requests\GenerateSlugRequest;
 use Illuminate\Http\JsonResponse;
 
 class SlugController extends Controller
 {
-    public function generate(Request $request): JsonResponse
+    public function generate(GenerateSlugRequest $request): JsonResponse
     {
-        $title = $request->query('title', '');
-
-        if (empty($title)) {
-            return response()->json(['error' => 'Title parameter is required'], 400);
-        }
+        $title = $request->input('title');
 
         return response()->json([
-            'slug' => generate_slug($title)
+            'slug' => generate_slug($title),
         ]);
     }
 }
