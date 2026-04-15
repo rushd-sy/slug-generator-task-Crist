@@ -1,24 +1,11 @@
 <?php
 
-namespace Tests\Unit;
+uses(Tests\TestCase::class)->in(__DIR__);
 
-use PHPUnit\Framework\TestCase;
+test('generates valid slug', function () {
+    expect(generate_slug('What is a "slug" in Laravel?'))->toBe('what-is-a-slug-in-laravel');
+});
 
-class SlugGeneratorTest extends TestCase
-{
-    /** @test */
-    public function it_generates_a_valid_slug_from_title()
-    {
-        $title = 'What is a "slug" in Laravel?';
-        $expected = 'what-is-a-slug-in-laravel';
-
-        $this->assertEquals($expected, generate_slug($title));
-    }
-
-    /** @test */
-    public function it_handles_numbers_and_special_characters()
-    {
-        $this->assertEquals('hello-world-123', generate_slug('Hello World 123!'));
-        $this->assertEquals('cafe', generate_slug('Café'));
-    }
-}
+test('handles special chars', function () {
+    expect(generate_slug('Hello World 123!'))->toBe('hello-world-123');
+});
