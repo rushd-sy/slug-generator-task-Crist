@@ -7,6 +7,9 @@ if (!function_exists('generate_slug')) {
     {
         // regex solution //
 
+        // remove Special Characters / Emojis
+        $title = preg_replace('/[\x{10000}-\x{10FFFF}]/u', '', $title);
+
         // UTF‑8 to ASCII
         // (e.g., “déjà vu” → “deja vu”)
         $text = iconv('UTF-8', 'ASCII//TRANSLIT', $title);

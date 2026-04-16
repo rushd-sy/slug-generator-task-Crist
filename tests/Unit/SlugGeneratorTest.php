@@ -9,3 +9,10 @@ test('generates valid slug', function () {
 test('handles special chars', function () {
     expect(generate_slug('Hello World 123!'))->toBe('hello-world-123');
 });
+
+test('handles special characters and emojis smoothly', function () {
+
+    expect(generate_slug('👽 Hello @ World 🔥!'))->toBe('hello-world');
+});
+
+
