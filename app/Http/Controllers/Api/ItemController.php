@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreItemRequest;
+use App\Http\Requests\UpdateItemRequest;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
@@ -13,15 +15,9 @@ class ItemController extends Controller
         return Item::all();
     }
 
-    public function store(Request $request)
+    public function store(StoreItemRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'nullable|boolean',
-            'image' => 'nullable|url',
-            'description' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         return Item::create($validated);
     }
@@ -31,15 +27,9 @@ class ItemController extends Controller
         return $item;
     }
 
-    public function update(Request $request, Item $item)
+    public function update(UpdateItemRequest $request, Item $item)
     {
-        $validated = $request->validate([
-            'title' => 'sometimes|required|string|max:255',
-            'price' => 'sometimes|required|numeric|min:0',
-            'stock' => 'nullable|boolean',
-            'image' => 'nullable|url',
-            'description' => 'nullable|string',
-        ]);
+        $validated = $request->validated();
 
         $item->update($validated);
         return $item;
