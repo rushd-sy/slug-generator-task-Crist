@@ -52,7 +52,11 @@ test('can update an item', function () {
     // Assert
     $response->assertOk()
              ->assertJsonPath('title', 'New Title');
-    $this->assertDatabaseHas('items', ['title' => 'New Title']);
+        $this->assertDatabaseHas('items', [
+        'id' => $item->id,
+        'title' => 'New Title',
+        'price' => 99.99,
+    ]);
 });
 
 test('can delete an item', function () {
