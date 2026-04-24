@@ -6,15 +6,26 @@ use App\Models\Item;
 
 test('can list all items', function () {
     // Arrange
-    $items = Item::factory()->count(3)->create();
+    $items = Item::factory()->count(30)->create();
 
     // Act
     $response = $this->getJson(route('items.index'));
 
     // Assert
     $response->assertOk()
-             ->assertJsonCount(3);
+             ->assertJsonCount(10, 'data');
 });
+
+test('out of range page returns empty data', function () {
+    Item::factory()->count(5)->create();
+
+    $response = $this->getJson(route('items.index', ['page' => 100]));
+
+    $response->assertOk()
+        ->assertJsonPath('meta.current_page', 100)
+        ->assertJsonCount(0, 'data');
+});
+
 
 test('can create a new item', function () {
     // Arrange
