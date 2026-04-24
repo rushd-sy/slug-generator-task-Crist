@@ -14,11 +14,11 @@ class UpdateItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'sometimes|required|string|max:255',
-            'price' => 'sometimes|required|numeric|min:0',
-            'stock' => 'nullable|boolean',
-            'image' => 'nullable|url',
-            'description' => 'nullable|string',
+            'title' => ['sometimes', 'required', 'string', 'max:255'],
+            'price' => ['sometimes', 'required', 'numeric', 'min:0'],
+            'stock' => ['nullable', 'boolean'],
+            'image' => ['nullable', 'url'],
+            'description' => ['nullable', 'string'],
         ];
     }
 }

@@ -14,11 +14,11 @@ class StoreItemRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'price' => 'required|numeric|min:0',
-            'stock' => 'nullable|boolean',
-            'image' => 'nullable|url',
-            'description' => 'nullable|string',
+            'title' => ['required', 'string', 'max:255'],
+            'price' => ['required', 'numeric', 'min:0'],
+            'stock' => ['nullable', 'boolean'],
+            'image' => ['nullable', 'url'],
+            'description' => ['nullable', 'string'],
         ];
     }
 }
