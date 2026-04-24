@@ -9,7 +9,7 @@ test('can list all items', function () {
     $items = Item::factory()->count(3)->create();
 
     // Act
-    $response = $this->getJson('/api/items');
+    $response = $this->getJson(route('items.index'));
 
     // Assert
     $response->assertOk()
@@ -21,7 +21,7 @@ test('can create a new item', function () {
     $data = Item::factory()->make()->toArray();
 
     // Act
-    $response = $this->postJson('/api/items', $data);
+    $response = $this->postJson(route('items.store'), $data);
 
     // Assert
     $response->assertCreated()
@@ -34,7 +34,7 @@ test('can show a single item', function () {
     $item = Item::factory()->create();
 
     // Act
-    $response = $this->getJson("/api/items/{$item->id}");
+    $response = $this->getJson(route('items.show', $item->id));
 
     // Assert
     $response->assertOk()
@@ -47,7 +47,7 @@ test('can update an item', function () {
     $updateData = ['title' => 'New Title', 'price' => 99.99];
 
     // Act
-    $response = $this->patchJson("/api/items/{$item->id}", $updateData);
+    $response = $this->patchJson(route('items.update', $item->id), $updateData);
 
     // Assert
     $response->assertOk()
@@ -60,7 +60,7 @@ test('can delete an item', function () {
     $item = Item::factory()->create();
 
     // Act
-    $response = $this->deleteJson("/api/items/{$item->id}");
+    $response = $this->deleteJson(route('items.destroy', $item->id));
 
     // Assert
     $response->assertNoContent();
