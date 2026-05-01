@@ -8,4 +8,6 @@ use App\Http\Controllers\Api\ItemController;
     return $request->user();
 })->middleware('auth:sanctum');
  */
-Route::apiResource('items', ItemController::class);
+Route::middleware(['throttle:items'])->group(function () {
+    Route::apiResource('items', ItemController::class);
+});
