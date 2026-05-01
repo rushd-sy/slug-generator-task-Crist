@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run formatters on staged PHP files (then re-stage if changed)
+
+# Collect staged PHP files (Added/Copied/Modified/Renamed)
+FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.php$' || true)
+
+if [ -z "$FILES" ]; then
+  exit 0
+fi
+
+echo "Running Pint on staged PHP files..."
+./vendor/bin/pint $FILES
+
+# Re-stage any files Pint modified
+echo "$FILES" | xargs git add
+
+# Optional: run quick static checks on staged files
+# echo "Running PHPCS on staged PHP files..."
+# ./vendor/bin/phpcs $FILES
+
+exit 0

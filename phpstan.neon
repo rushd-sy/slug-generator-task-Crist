@@ -1,0 +1,18 @@
+includes:
+  - vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+  paths:
+    - app
+    - config
+    - database
+    - routes
+    - tests
+
+  # Start easier, then raise later:
+  level: 5
+
+  # Optional: helpful in Laravel apps
+  excludePaths:
+    - storage
+    - bootstrap/cache
